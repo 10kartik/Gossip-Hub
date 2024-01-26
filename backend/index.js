@@ -15,16 +15,17 @@ app.get("/", (req, res) => {
   res.send("Hello world");
 });
 
-// Create an io server and allow for CORS from http://localhost:3000 with GET and POST methods
+// Create an io server and allow for CORS from any origin with GET and POST methods
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
 
 const CHAT_BOT = "ConnectCaptain ~ CHAT BOT";
 let allUsers = [];
+let chatRoom = "";
 
 // Listen for when the client connects via socket.io-client
 io.on("connection", (socket) => {
@@ -51,6 +52,7 @@ io.on("connection", (socket) => {
       roomName: room,
     });
 
+    chatRoom = room;
     // Send all unique users in room to all users in room
     allUsers.push({ id: socket.id, username, room });
     chatRoomUsers = allUsers.filter((user) => user.room === room);
@@ -81,6 +83,35 @@ io.on("connection", (socket) => {
     MongoDBSaveMessage(createdtime, message, username, room)
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
+  });
+
+  socket.on("leave_room", (data) => {
+    console.log("leave_room", data);
+    const { username, room } = data;
+    socket.leave(room);
+    const __createdtime__ = BasicHelper.getUnixEpochCurrentTimeInSeconds();
+    // Remove user from memory
+    allUsers = BasicHelper.leaveRoom(socket.id, allUsers);
+    socket.to(room).emit("chatroom_users", allUsers);
+    socket.to(room).emit("receive_message", {
+      roomName: room,
+      sentBy: CHAT_BOT,
+      messageContent: `${username} has left the chat`,
+      sentAt: __createdtime__,
+    });
+    console.log(`${username} has left the chat`);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected from the chat");
+    const user = allUsers.find((user) => user.id == socket.id);
+    if (user?.username) {
+      allUsers = BasicHelper.leaveRoom(socket.id, allUsers);
+      socket.to(chatRoom).emit("chatroom_users", allUsers);
+      socket.to(chatRoom).emit("receive_message", {
+        messageContent: `${user.username} has disconnected from the chat.`,
+      });
+    }
   });
 });
 

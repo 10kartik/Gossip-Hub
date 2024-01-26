@@ -1,0 +1,26 @@
+[
+  {"sentAt": 1706279000, "messageContent": "What's your opinion on AI ethics?", "sentBy": "Alice", "roomName": "Artificial Intelligence"},
+  {"sentAt": 1706279100, "messageContent": "I think ensuring ethical AI development is crucial for the future.", "sentBy": "Bob", "roomName": "Artificial Intelligence"},
+  {"sentAt": 1706279200, "messageContent": "Absolutely! It's essential to consider the impact on society.", "sentBy": "Charlie", "roomName": "Artificial Intelligence"},
+  {"sentAt": 1706279300, "messageContent": "Have you read any interesting AI articles recently?", "sentBy": "Eve", "roomName": "Artificial Intelligence"},
+  {"sentAt": 1706279400, "messageContent": "Yes, there was a great piece on AI advancements in healthcare.", "sentBy": "Grace", "roomName": "Artificial Intelligence"},
+
+  {"sentAt": 1706279000, "messageContent": "Any thoughts on the future of blockchain technology?", "sentBy": "Charlie", "roomName": "Blockchain"},
+  {"sentAt": 1706279100, "messageContent": "I believe blockchain will revolutionize various industries.", "sentBy": "Dave", "roomName": "Blockchain"},
+  {"sentAt": 1706279200, "messageContent": "What challenges do you see in the widespread adoption of blockchain?", "sentBy": "Eve", "roomName": "Blockchain"},
+  {"sentAt": 1706279300, "messageContent": "Scalability and regulatory concerns are key challenges.", "sentBy": "Frank", "roomName": "Blockchain"},
+  {"sentAt": 1706279400, "messageContent": "True, scalability is a major factor. Have you explored any solutions?", "sentBy": "Grace", "roomName": "Blockchain"},
+
+  {"sentAt": 1706279000, "messageContent": "What's your favorite machine learning algorithm?", "sentBy": "Alice", "roomName": "Machine Learning"},
+  {"sentAt": 1706279100, "messageContent": "I find decision trees fascinating. What about you?", "sentBy": "Bob", "roomName": "Machine Learning"},
+  {"sentAt": 1706279200, "messageContent": "I'm intrigued by neural networks. The complexity is amazing.", "sentBy": "Charlie", "roomName": "Machine Learning"},
+  {"sentAt": 1706279300, "messageContent": "Neural networks indeed have great potential. Have you worked on any projects involving ML?", "sentBy": "Dave", "roomName": "Machine Learning"},
+  {"sentAt": 1706279400, "messageContent": "Yes, I've implemented a recommendation system. It was challenging but rewarding.", "sentBy": "Eve", "roomName": "Machine Learning"},
+
+  {"sentAt": 1706279000, "messageContent": "What challenges have you faced in building distributed systems?", "sentBy": "Alice", "roomName": "Distributed Systems"},
+  {"sentAt": 1706279100, "messageContent": "Dealing with network partitions has been a major challenge for me. How about you?", "sentBy": "Bob", "roomName": "Distributed Systems"},
+  {"sentAt": 1706279200, "messageContent": "I've struggled with maintaining consistency in distributed databases. It's a delicate balance.", "sentBy": "Charlie", "roomName": "Distributed Systems"},
+  {"sentAt": 1706279300, "messageContent": "Absolutely, achieving consensus in distributed systems is no easy task. Any tips?", "sentBy": "Dave", "roomName": "Distributed Systems"},
+  {"sentAt": 1706279400, "messageContent": "I've found using consensus algorithms like Raft to be helpful. How about exploring consensus mechanisms?", "sentBy": "Eve", "roomName": "Distributed Systems"}
+]
+  

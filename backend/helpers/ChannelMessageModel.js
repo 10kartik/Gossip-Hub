@@ -4,9 +4,8 @@ mongoConnection;
 
 const messageSchema = new mongoose.Schema({
   sentAt: {
-    type: Date,
+    type: String,
     required: true,
-    default: Date("<YYYY-mm-dd>"),
   },
   messageContent: {
     type: String,
@@ -22,4 +21,7 @@ const messageSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Gossip-Hub-DB", messageSchema);
+const env = process.env.environment;
+const schemaName = `Gossip-Hub-DB-${env}`;
+
+module.exports = mongoose.model(schemaName, messageSchema);
