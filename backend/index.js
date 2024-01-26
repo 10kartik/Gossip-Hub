@@ -82,6 +82,35 @@ io.on("connection", (socket) => {
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   });
+
+  socket.on("leave_room", (data) => {
+    console.log("leave_room", data);
+    const { username, room } = data;
+    socket.leave(room);
+    const __createdtime__ = BasicHelper.getUnixEpochCurrentTimeInSeconds();
+    // Remove user from memory
+    allUsers = BasicHelper.leaveRoom(socket.id, allUsers);
+    socket.to(room).emit("chatroom_users", allUsers);
+    socket.to(room).emit("receive_message", {
+      roomName: room,
+      sentBy: CHAT_BOT,
+      messageContent: `${username} has left the chat`,
+      sentAt: __createdtime__,
+    });
+    console.log(`${username} has left the chat`);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected from the chat");
+    const user = allUsers.find((user) => user.id == socket.id);
+    if (user?.username) {
+      allUsers = leaveRoom(socket.id, allUsers);
+      socket.to(chatRoom).emit("chatroom_users", allUsers);
+      socket.to(chatRoom).emit("receive_message", {
+        messageContent: `${user.username} has disconnected from the chat.`,
+      });
+    }
+  });
 });
 
 const PORT = 7007;
