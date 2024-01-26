@@ -4,9 +4,8 @@ mongoConnection;
 
 const messageSchema = new mongoose.Schema({
   sentAt: {
-    type: Date,
+    type: String,
     required: true,
-    default: Date("<YYYY-mm-dd>"),
   },
   messageContent: {
     type: String,

@@ -25,6 +25,7 @@ const io = new Server(server, {
 
 const CHAT_BOT = "ConnectCaptain ~ CHAT BOT";
 let allUsers = [];
+let chatRoom = ""; 
 
 // Listen for when the client connects via socket.io-client
 io.on("connection", (socket) => {
@@ -51,6 +52,7 @@ io.on("connection", (socket) => {
       roomName: room,
     });
 
+    chatRoom = room;
     // Send all unique users in room to all users in room
     allUsers.push({ id: socket.id, username, room });
     chatRoomUsers = allUsers.filter((user) => user.room === room);
@@ -104,7 +106,7 @@ io.on("connection", (socket) => {
     console.log("User disconnected from the chat");
     const user = allUsers.find((user) => user.id == socket.id);
     if (user?.username) {
-      allUsers = leaveRoom(socket.id, allUsers);
+      allUsers = BasicHelper.leaveRoom(socket.id, allUsers);
       socket.to(chatRoom).emit("chatroom_users", allUsers);
       socket.to(chatRoom).emit("receive_message", {
         messageContent: `${user.username} has disconnected from the chat.`,
