@@ -22,4 +22,4 @@ const messageSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Channel-Message-Schema", messageSchema);
+module.exports = mongoose.model("Gossip-Hub-DB", messageSchema);
