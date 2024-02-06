@@ -11,8 +11,8 @@ app.use(cors()); // Add cors middleware
 
 const server = http.createServer(app);
 
-app.get("/", (req, res) => {
-  res.send("Hello world");
+app.get("/health", (req, res) => {
+  res.status(200).send("Server is running");
 });
 
 // Create an io server and allow for CORS from any origin with GET and POST methods
@@ -116,4 +116,7 @@ io.on("connection", (socket) => {
 });
 
 const PORT = 7007;
-server.listen(PORT, () => `Server is running on port ${PORT}`);
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
