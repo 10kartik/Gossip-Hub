@@ -26,6 +26,21 @@ class MongoDBConnection {
     try {
       mongoose.set("strictQuery", true);
       await mongoose.connect(connectionString, dbOptions);
+
+      // Check if the database exists, and if not, create it
+      const admin = mongoose.connection.db.admin();
+      const databaseName =
+        process.env.APP_NAME + process.env.environment_suffix;
+      const databases = await admin.listDatabases();
+      const databaseExists = databases.databases.some(
+        (db) => db.name === databaseName
+      );
+
+      if (!databaseExists) {
+        console.log(`Database "${databaseName}" does not exist. Creating...`);
+        await admin.createDatabase(databaseName);
+        console.log(`Database "${databaseName}" created successfully.`);
+      }
     } catch (error) {
       console.error(error);
     }
