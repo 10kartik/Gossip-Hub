@@ -129,3 +129,12 @@ dist
 .yarn/install-state.gz
 .pnp.*
 .vercel
+
+# any folder having .terraform will be ignored
+**/.terraform/*
+
+# terraform lock file in any directory
+**/.terraform.lock.hcl
+
+# all .json files in /infra folder
+infra/**/*.json
