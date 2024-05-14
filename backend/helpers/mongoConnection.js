@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-// use dotenv to get environment variables
 require("dotenv").config();
 
 class MongoDBConnection {
@@ -8,7 +7,6 @@ class MongoDBConnection {
   }
 
   async createConnection() {
-    // Get DB configs from environment properties file
     const connectionString = process.env.MONGODB_CONNECTION_STRING;
 
     if (!connectionString) {
@@ -16,33 +14,19 @@ class MongoDBConnection {
     }
 
     const dbOptions = {
-      autoIndex: true, // Don't build indexes
-      maxPoolSize: 10, // Maintain up to 10 socket connections
-      serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
-      socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
-      family: 4, // Use IPv4, skip trying IPv6
+      autoIndex: true,
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+      family: 4,
     };
 
     try {
       mongoose.set("strictQuery", true);
       await mongoose.connect(connectionString, dbOptions);
-
-      // Check if the database exists, and if not, create it
-      const admin = mongoose.connection.db.admin();
-      const databaseName =
-        process.env.APP_NAME + process.env.environment_suffix;
-      const databases = await admin.listDatabases();
-      const databaseExists = databases.databases.some(
-        (db) => db.name === databaseName
-      );
-
-      if (!databaseExists) {
-        console.log(`Database "${databaseName}" does not exist. Creating...`);
-        await admin.createDatabase(databaseName);
-        console.log(`Database "${databaseName}" created successfully.`);
-      }
+      console.log("Connected to MongoDB successfully.");
     } catch (error) {
-      console.error(error);
+      console.error("Error connecting to MongoDB: ", error);
     }
   }
 }
