@@ -10,7 +10,7 @@ const BasicHelper = require("./helpers/helper");
 
 app.use(cors()); // Add cors middleware
 
-server = http.createServer(app);
+const server = http.createServer(app);
 
 app.get("/health", (req, res) => {
   res.status(200).send("Server is running");
