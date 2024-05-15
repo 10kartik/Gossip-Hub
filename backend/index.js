@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const https = require("https");
 const http = require("http");
 const fs = require("fs");
 const cors = require("cors");
@@ -11,30 +10,7 @@ const BasicHelper = require("./helpers/helper");
 
 app.use(cors()); // Add cors middleware
 
-const environment = process.env.environment;
-
-let server;
-
-if (environment === "production") {
-  // Read the SSL certificate files
-  const privateKey = fs.readFileSync(
-    "/etc/letsencrypt/live/gossip-hub.10-kk.com/privkey.pem",
-    "utf8"
-  );
-  const certificate = fs.readFileSync(
-    "/etc/letsencrypt/live/gossip-hub.10-kk.com/fullchain.pem",
-    "utf8"
-  );
-
-  const credentials = {
-    key: privateKey,
-    cert: certificate,
-  };
-
-  server = https.createServer(credentials, app);
-} else {
-  server = http.createServer(app);
-}
+server = http.createServer(app);
 
 app.get("/health", (req, res) => {
   res.status(200).send("Server is running");
