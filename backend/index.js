@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const http = require("http");
+const https = require("https");
 const cors = require("cors");
 const { Server } = require("socket.io");
 const MongoDBSaveMessage = require("./helpers/saveMessage");
@@ -9,7 +9,30 @@ const BasicHelper = require("./helpers/helper");
 
 app.use(cors()); // Add cors middleware
 
-const server = http.createServer(app);
+const environment = process.env.environment;
+
+let server;
+
+if (environment === "production") {
+  // Read the SSL certificate files
+  const privateKey = fs.readFileSync(
+    "/etc/letsencrypt/live/gossip-hub.10-kk.com/privkey.pem",
+    "utf8"
+  );
+  const certificate = fs.readFileSync(
+    "/etc/letsencrypt/live/gossip-hub.10-kk.com/fullchain.pem",
+    "utf8"
+  );
+
+  const credentials = {
+    key: privateKey,
+    cert: certificate,
+  };
+
+  server = https.createServer(credentials, app);
+} else {
+  server = http.createServer(app);
+}
 
 app.get("/health", (req, res) => {
   res.status(200).send("Server is running");
@@ -119,4 +142,3 @@ const PORT = 7007;
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
