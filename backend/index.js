@@ -18,11 +18,11 @@ let server;
 if (environment === "production") {
   // Read the SSL certificate files
   const privateKey = fs.readFileSync(
-    "../etc/letsencrypt/live/gossip-hub.10-kk.com/privkey.pem",
+    "/etc/letsencrypt/live/gossip-hub.10-kk.com/privkey.pem",
     "utf8"
   );
   const certificate = fs.readFileSync(
-    "../etc/letsencrypt/live/gossip-hub.10-kk.com/fullchain.pem",
+    "/etc/letsencrypt/live/gossip-hub.10-kk.com/fullchain.pem",
     "utf8"
   );
 
