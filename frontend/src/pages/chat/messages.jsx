@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 import { useState, useEffect, useRef } from "react";
-const helper = require("../../utils/helper");
+import helper from "../../utils/helper.js";
 
 const Messages = ({ socket }) => {
   const [messagesRecieved, setMessagesReceived] = useState([]);

@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 import React, { useState } from "react";
-const socketService = require("../../services/socketService");
+import socketService from "../../services/socketService.js";
 
 const SendMessage = ({ socket, username, room }) => {
   const [message, setMessage] = useState("");

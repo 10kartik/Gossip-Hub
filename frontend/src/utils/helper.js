@@ -30,5 +30,4 @@ class Helper {
   }
 }
 
-// Export the instance for use in other files
-module.exports = new Helper();
+export default new Helper();

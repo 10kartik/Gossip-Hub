@@ -1,7 +1,6 @@
-const helper = require("../utils/helper");
+import helper from "../utils/helper.js";
 
 class socketService {
-  // send message to server
   sendMessage(socket, username, room, message) {
     if (message !== "") {
       const createdtime = helper.getUnixEpochCurrentTimeInSeconds();
@@ -10,4 +9,4 @@ class socketService {
   }
 }
 
-module.exports = new socketService();
+export default new socketService();
